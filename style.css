@@ -1,31 +1,57 @@
-/* Light & Clean Theme */
+/* ==========================
+   Light & Clean Theme
+========================== */
 body {
-    background-color: #fcfcfc;
+    background-color: #fcfcfc; /* Very light grey background */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #444;
+    color: #333; /* Slightly darker for readability */
+    margin: 0;
+    padding: 0;
 }
 
-/* Interactive Table: Rows highlight when you touch them (Web 3) */
+/* ==========================
+   Table Styling
+========================== */
 table {
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Soft shadow */
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff; /* White background */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); /* Softer shadow */
+    border-radius: 6px; /* Rounded corners */
+    overflow: hidden; /* Round corners applied */
 }
 
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee; /* Light separator */
+}
+
+/* Row hover effect */
 tr:hover {
-    background-color: #f1f7ff; /* Gentle blue highlight */
-    transition: 0.3s;
+    background-color: #e6f0ff; /* Gentle blue highlight */
+    transition: background-color 0.3s ease;
 }
 
-/* Interactive Buttons: Grow slightly on hover */
+/* ==========================
+   Button Styling
+========================== */
 .btn-del {
-    background-color: #ff4d4d;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
+    display: inline-block;
+    background-color: #ff4d4d; /* Red delete button */
+    color: #fff;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     text-decoration: none;
-    transition: transform 0.2s;
 }
 
+/* Hover effect for button */
 .btn-del:hover {
-    transform: scale(1.1); /* Slightly grows */
+    transform: scale(1.05); /* Slightly grow */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Add subtle shadow */
 }
