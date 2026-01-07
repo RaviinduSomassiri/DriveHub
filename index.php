@@ -9,24 +9,24 @@ $sql = "SELECT * FROM vehicles";
 // 3. Check if Search Button was clicked (POST method)
 if (isset($_POST['search_btn'])) {
     
-    // Get values from the form
-    $s_brand = $_POST['brand'];
-    $s_category = $_POST['category'];
-    $s_fuel = $_POST['fuel_type'];
+// Get values from the form
+$s_brand = $_POST['brand'];
+$s_category = $_POST['category'];
+$s_fuel = $_POST['fuel_type'];
 
-    // Start building the WHERE clause
-    // We use "1=1" trick so we can easily add "AND" conditions
-    $sql .= " WHERE 1=1";
+// Start building the WHERE clause
+// We use "1=1" trick so we can easily add "AND" conditions
+$sql .= " WHERE 1=1";
 
-    if ($s_brand != "All") {
-        $sql .= " AND brand = '$s_brand'";
-    }
-    if ($s_category != "All") {
-        $sql .= " AND category = '$s_category'";
-    }
-    if ($s_fuel != "All") {
-        $sql .= " AND fuel_type = '$s_fuel'";
-    }
+if ($s_brand != "All") {
+ $sql .= " AND brand = '$s_brand'";
+}
+if ($s_category != "All") {
+$sql .= " AND category = '$s_category'";
+}
+if ($s_fuel != "All") {
+$sql .= " AND fuel_type = '$s_fuel'";
+}
 }
 
 // 4. Execute the Query
@@ -143,4 +143,5 @@ echo "<p>No vehicles found matching your criteria.</p>";
 </footer>
 
 </body>
+
 </html>
