@@ -1,25 +1,27 @@
 <?php
-// 1. Connect to Database
-include 'db_connect.php';
-
-// 2. Initialize the Query
+// 1. Start Session
+session_start();
+// 2. Connect to database
+include 'config.php';
+// 3. Include the header
+include 'header.php';
+// 4. Initialize the Query
 // By default, we select ALL vehicles
-$sql = "SELECT * FROM vehicles";
+$sql = "SELECT * FROM vehicles ORDER BY id DESC";
 
-// 3. Check if Search Button was clicked (POST method)
+// 5. Search Logic
 if (isset($_POST['search_btn'])) {
     
-// Get values from the form
 $s_brand = $_POST['brand'];
 $s_category = $_POST['category'];
 $s_fuel = $_POST['fuel_type'];
 
-// Start building the WHERE clause
-// We use "1=1" trick so we can easily add "AND" conditions
-$sql .= " WHERE 1=1";
+// Start building query with a "dummy" WHERE clause
+$sql = "SELECT * FROM vehicles WHERE 1=1";
 
+// Append conditions if the user didn't select "All"
 if ($s_brand != "All") {
- $sql .= " AND brand = '$s_brand'";
+$sql .= " AND brand = '$s_brand'";
 }
 if ($s_category != "All") {
 $sql .= " AND category = '$s_category'";
@@ -29,31 +31,16 @@ $sql .= " AND fuel_type = '$s_fuel'";
 }
 }
 
-// 4. Execute the Query
+// 6. Execute the Query
 $result = mysqli_query($conn, $sql);
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-<title>DriveHub - Sri Lanka's Elite Vehicle Market</title>
-<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-<header>
-<nav>
-<a href="index.php" class="logo">DRIVEHUB</a>
-<ul class="nav-links">
-<li><a href="index.php">Home</a></li>
-<li><a href="login.php">Login</a></li>
-<li><a href="sell.php">Post an Ad</a></li> <li><a href="inventory.php">My Garage</a></li>
-</ul>
-</nav>
-</header>
-
+<div class="main-content">
+    
 <section class="search-section">
-<h2>Find Your Dream Vehicle</h2>
+<h2 style="color: #d90429; border-bottom: 2px solid #ddd; padding-bottom: 10px;">
+Find Your Dream Vehicle
+</h2>
         
 <form action="index.php" method="POST" class="search-form">
             
@@ -65,7 +52,7 @@ $result = mysqli_query($conn, $sql);
 <option value="Honda">Honda</option>
 <option value="Nissan">Nissan</option>
 <option value="BMW">BMW</option>
-<option value="Benz">Benz</option>
+option value="Benz">Benz</option>
 </select>
 </div>
 
@@ -92,7 +79,7 @@ $result = mysqli_query($conn, $sql);
 </div>
 
 <div class="search-group">
-<button type="submit" name="search_btn" class="btn-search">Search Vehicles</button>
+<button type="submit" name="search_btn" class="btn-search">Search</button>
 </div>
 
 </form>
@@ -102,46 +89,54 @@ $result = mysqli_query($conn, $sql);
 <h3 class="gallery-header">Latest Arrivals</h3>
 
 <div class="gallery-grid">
-
+   
 <?php
-// 5. Check if we have results
+// Check if any cars exist
 if (mysqli_num_rows($result) > 0) {
-// Loop through each row in the database
+   
+// Loop through database results
 while($row = mysqli_fetch_assoc($result)) {
 ?>
-  
+   
 <div class="vehicle-card">
-<img src="images/car1.jpg" alt="Vehicle Image">
-
+<img src="images/car1.jpg" alt="Car" class="card-img">
+   
 <div class="vehicle-info">
 <div class="vehicle-title">
 <?php echo $row['brand'] . " " . $row['vehicle_name']; ?>
 </div>
-  
+   
 <div class="vehicle-price">
 Rs. <?php echo number_format($row['price']); ?>
 </div>
-  
+    
 <div class="vehicle-details">
-<p>Year: <?php echo $row['year_made']; ?></p>
-<p>Fuel: <?php echo $row['fuel_type']; ?></p>
-<p>Type: <?php echo $row['category']; ?></p>
+<span>Year: <?php echo $row['year_made']; ?></span> | 
+<span><?php echo $row['fuel_type']; ?></span> |
+<span><?php echo $row['mileage']; ?> km</span>
 </div>
+   
+<p style="color:gray; font-size:12px; margin-top:5px;">
+Category: <?php echo $row['category']; ?>
+</p>
 </div>
-</div>
+/div>
+
 <?php
 }
 } else {
-echo "<p>No vehicles found matching your criteria.</p>";
+echo "<p style='text-align:center; width:100%;'>No vehicles found matching your criteria.</p>";
 }
 ?>
 </div>
 </div>
 
-<footer>
-<p>&copy; 2026 DriveHub. All Rights Reserved.</p>
+</div>
+
+<footer style="background:#222; color:white; text-align:center; padding:20px; margin-top:50px;">
+    <p>&copy; 2026 DriveHub. All Rights Reserved.</p>
 </footer>
 
 </body>
-
 </html>
+
