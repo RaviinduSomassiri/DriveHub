@@ -50,6 +50,11 @@ transition: 0.3s;
 background-color: #d90429;
 border-radius: 5px;
 }
+/* Main Content */
+.main-content {
+    background-color: #f4f4f4;
+    padding-bottom: 20px;
+}
 /*search section */
 .search-section {
 background-color: #fff;
